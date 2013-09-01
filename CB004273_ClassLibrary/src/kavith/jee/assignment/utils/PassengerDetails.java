@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author KavithThiranga
  */
-public class PassengerDetails implements Serializable, RecordDetails{
+public class PassengerDetails implements Serializable{
   
     private String passengerid;
    

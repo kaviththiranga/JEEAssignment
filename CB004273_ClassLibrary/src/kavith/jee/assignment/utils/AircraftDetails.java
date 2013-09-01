@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author KavithThiranga
  */
-public class AircraftDetails implements Serializable, RecordDetails{
+public class AircraftDetails implements Serializable{
    
     private String aircraftid;
    

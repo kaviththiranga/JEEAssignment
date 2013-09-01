@@ -19,21 +19,6 @@ import kavith.jee.assignment.utils.RecordDetails;
 public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
 
     @Override
-    public void createRecord(RecordDetails obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void updateRecord(RecordDetails obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void deleteRecord(RecordDetails obj) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public List<BookingDetails> getBookingsByPassenger(String passengerID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -58,5 +43,18 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-   
+    @Override
+    public void createRecord(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateRecord(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void deleteRecord(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    } 
 }

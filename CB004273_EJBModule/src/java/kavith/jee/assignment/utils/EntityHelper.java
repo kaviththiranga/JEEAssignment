@@ -94,4 +94,19 @@ public class EntityHelper {
         
         return pdl;
     }
+    
+    public static Aircraftcb004273 convertToAircraftEntity(AircraftDetails ad)
+    {
+        return new Aircraftcb004273(ad.getAircraftid(), ad.getManufacturer(),
+                                    ad.getDetails(), ad.getCapacity(), null);
+    }
+    
+    public static Bookingcb004273 convertToBookingEntity(BookingDetails bd)
+    {
+        return new Bookingcb004273(
+                                    bd.getBookingno(),
+                                    null,
+                                    null
+                                    );
+    }
 }

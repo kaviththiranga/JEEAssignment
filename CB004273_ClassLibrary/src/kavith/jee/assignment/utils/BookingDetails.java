@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author KavithThiranga
  */
-public class BookingDetails implements Serializable, RecordDetails{
+public class BookingDetails implements Serializable{
     
     private String bookingno;
     
