@@ -14,14 +14,14 @@ public class BookingDetails implements Serializable{
     
     private String bookingno;
     
-    private PassengerDetails passenger;
+    private String passengerId;
     
-    private FlightDetails flight;
+    private String flightId;
 
-    public BookingDetails(String bookingno, PassengerDetails passenger, FlightDetails flight) {
+    public BookingDetails(String bookingno, String passengerId, String flightId) {
         this.bookingno = bookingno;
-        this.passenger = passenger;
-        this.flight = flight;
+        this.passengerId = passengerId;
+        this.flightId = flightId;
     }
     
     /**
@@ -41,28 +41,28 @@ public class BookingDetails implements Serializable{
     /**
      * @return the passenger
      */
-    public PassengerDetails getPassenger() {
-        return passenger;
+    public String getPassengerId() {
+        return passengerId;
     }
 
     /**
      * @param passenger the passenger to set
      */
-    public void setPassenger(PassengerDetails passenger) {
-        this.passenger = passenger;
+    public void setPassengerId(String passengerId) {
+        this.passengerId = passengerId;
     }
 
     /**
      * @return the flight
      */
-    public FlightDetails getFlight() {
-        return flight;
+    public String getFlightId() {
+        return flightId;
     }
 
     /**
      * @param flight the flight to set
      */
-    public void setFlight(FlightDetails flight) {
-        this.flight = flight;
+    public void setFlightId(String flightId) {
+        this.flightId = flightId;
     }
 }

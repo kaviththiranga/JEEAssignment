@@ -26,16 +26,16 @@ public class FlightDetails implements Serializable{
     
     private Short capacity;
     
-    private AircraftDetails aircraft;
+    private String aircraftId;
 
-    public FlightDetails(String flightno, String deptairport, String arrairport, Date depdate, Date arrdate, Short capacity, AircraftDetails aircraft) {
+    public FlightDetails(String flightno, String deptairport, String arrairport, Date depdate, Date arrdate, Short capacity, String aircraftId) {
         this.flightno = flightno;
         this.deptairport = deptairport;
         this.arrairport = arrairport;
         this.depdate = depdate;
         this.arrdate = arrdate;
         this.capacity = capacity;
-        this.aircraft = aircraft;
+        this.aircraftId = aircraftId;
     }
     
     /**
@@ -125,14 +125,14 @@ public class FlightDetails implements Serializable{
     /**
      * @return the aircraft
      */
-    public AircraftDetails getAircraft() {
-        return aircraft;
+    public String getAircraftId() {
+        return aircraftId;
     }
 
     /**
      * @param aircraft the aircraft to set
      */
-    public void setAircraft(AircraftDetails aircraft) {
-        this.aircraft = aircraft;
+    public void setAircraftId(String aircraftId) {
+        this.aircraftId = aircraftId;
     }
 }

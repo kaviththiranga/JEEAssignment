@@ -56,7 +56,7 @@ public class FlightBookingServiceBean implements MessageListener {
                 logger.log(
                         Level.INFO, "Booking request received. ID :{0} Flight ID:{1}", 
                         new Object[]{ booking.getBookingno(),
-                        booking.getFlight().getFlightno()}
+                        booking.getFlightId()}
                         );
                 // TODO: call service bean and make the booking
             }

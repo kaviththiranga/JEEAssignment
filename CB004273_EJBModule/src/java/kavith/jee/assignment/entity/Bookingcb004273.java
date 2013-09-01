@@ -38,18 +38,18 @@ public class Bookingcb004273 implements Serializable {
     private String bookingno;
     @JoinColumn(name = "PASSENGERID", referencedColumnName = "PASSENGERID")
     @ManyToOne
-    private Passengercb004273 passengerid;
+    private Passengercb004273 passenger;
     @JoinColumn(name = "FLIGHTNO", referencedColumnName = "FLIGHTNO")
     @ManyToOne
-    private Flightcb004273 flightno;
+    private Flightcb004273 flight;
 
     public Bookingcb004273() {
     }
 
     public Bookingcb004273(String bookingno, Passengercb004273 passengerid, Flightcb004273 flightno) {
         this.bookingno = bookingno;
-        this.passengerid = passengerid;
-        this.flightno = flightno;
+        this.passenger = passengerid;
+        this.flight = flightno;
     }
 
     public Bookingcb004273(String bookingno) {
@@ -64,20 +64,20 @@ public class Bookingcb004273 implements Serializable {
         this.bookingno = bookingno;
     }
 
-    public Passengercb004273 getPassengerid() {
-        return passengerid;
+    public Passengercb004273 getPassenger() {
+        return passenger;
     }
 
-    public void setPassengerid(Passengercb004273 passengerid) {
-        this.passengerid = passengerid;
+    public void setPassenger(Passengercb004273 passenger) {
+        this.passenger = passenger;
     }
 
-    public Flightcb004273 getFlightno() {
-        return flightno;
+    public Flightcb004273 getFlight() {
+        return flight;
     }
 
-    public void setFlightno(Flightcb004273 flightno) {
-        this.flightno = flightno;
+    public void setFlight(Flightcb004273 flight) {
+        this.flight = flight;
     }
 
     @Override
