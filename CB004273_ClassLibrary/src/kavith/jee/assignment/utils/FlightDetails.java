@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author KavithThiranga
  */
-public class FlightDetails implements Serializable{
+public class FlightDetails implements Serializable, RecordDetails{
   
     private String flightno;
    
