@@ -13,7 +13,7 @@ import kavith.jee.assignment.utils.FlightDetails;
 import kavith.jee.assignment.utils.PassengerDetails;
 
 /**
- *
+ * This defines data query methods which should be exposed to remote clients.
  * @author KavithThiranga
  */
 @Remote

@@ -19,7 +19,7 @@ import kavith.jee.assignment.entity.*;
  * @author KavithThiranga
  */
 @Stateless(mappedName = "DataQuerySerivce")
-public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote {
+public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQueryServiceLocal {
 
     @PersistenceContext
     private EntityManager em;

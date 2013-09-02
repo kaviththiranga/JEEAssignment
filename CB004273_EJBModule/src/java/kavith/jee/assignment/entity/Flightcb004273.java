@@ -61,7 +61,7 @@ public class Flightcb004273 implements Serializable, RecordEntity {
     private Date arrdate;
     @Column(name = "CAPACITY")
     private Short capacity;
-    @OneToMany(mappedBy = "flightno")
+    @OneToMany(mappedBy = "flight")
     private List<Bookingcb004273> bookingcb004273List;
     @JoinColumn(name = "AIRCRAFTID", referencedColumnName = "AIRCRAFTID")
     @ManyToOne

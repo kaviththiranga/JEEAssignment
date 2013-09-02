@@ -45,7 +45,7 @@ public class Passengercb004273 implements Serializable, RecordEntity {
     @Size(max = 20)
     @Column(name = "LNAME")
     private String lname;
-    @OneToMany(mappedBy = "passengerid")
+    @OneToMany(mappedBy = "passenger")
     private List<Bookingcb004273> bookingcb004273List;
 
     public Passengercb004273() {

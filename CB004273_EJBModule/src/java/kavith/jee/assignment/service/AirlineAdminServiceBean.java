@@ -17,7 +17,7 @@ import kavith.jee.assignment.utils.*;
  *
  * @author KavithThiranga
  */
-@Stateless(mappedName = "AirlineAdminService")
+@Stateless
 public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
 
     static final Logger logger = Logger.getLogger("AirlineAdminServiceBean");
@@ -25,8 +25,9 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
     @PersistenceContext
     private EntityManager em;
     
-    @EJB
-    private DataQuerySerivceBean db;
+    @EJB private DataQueryServiceLocal dbLocal;
+    @EJB private DataQuerySerivceBeanRemote dbRemote;    
+    
 
     @Override
     public void createRecord(RecordDetails obj) {        
