@@ -8,14 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import kavith.jee.assignment.utils.BookingDetails;
 
 /**
@@ -31,13 +30,13 @@ import kavith.jee.assignment.utils.BookingDetails;
 })
 public class FlightBookingServiceBean implements MessageListener {
    
-    static final Logger logger = Logger.getLogger("BookingServiceBean");
+    static final Logger logger = Logger.getLogger("BookingServiceMDBean");
     
     @Resource
     private MessageDrivenContext mdc;
     
-    @PersistenceContext
-    private EntityManager em;
+    @EJB
+    AirlineAdminServiceBean ads;
 
     
     public FlightBookingServiceBean() {
@@ -58,7 +57,7 @@ public class FlightBookingServiceBean implements MessageListener {
                         new Object[]{ booking.getBookingno(),
                         booking.getFlightId()}
                         );
-                // TODO: call service bean and make the booking
+                // TODO: call admin service bean and place the booking
             }
          }catch (JMSException e) {
             mdc.setRollbackOnly();
