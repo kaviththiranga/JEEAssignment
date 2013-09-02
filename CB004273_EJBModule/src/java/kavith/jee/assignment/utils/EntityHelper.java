@@ -6,21 +6,27 @@ package kavith.jee.assignment.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import kavith.jee.assignment.entity.*;
+import kavith.jee.assignment.service.DataQuerySerivceBean;
+
 /**
  *
  * @author KavithThiranga
  */
 public class EntityHelper {
     
-    public static AircraftDetails convertToAircraftDetails(Aircraftcb004273 ac)
+    @EJB
+    private static DataQuerySerivceBean db;
+    
+    private static AircraftDetails convertToAircraftDetails(Aircraftcb004273 ac)
     {
         return new AircraftDetails(
                 ac.getAircraftid(), ac.getManufacturer(), 
                 ac.getDetails(), ac.getCapacity()
                 );
     }
-    public static FlightDetails convertToFilghtDetails(Flightcb004273 f)
+    private static FlightDetails convertToFlightDetails(Flightcb004273 f)
     {
         return new FlightDetails(
                 f.getFlightno(), f.getDeptairport(), 
@@ -30,7 +36,7 @@ public class EntityHelper {
                 );
     }
     
-    public static PassengerDetails convertToPassengerDetails(Passengercb004273 p)
+    private static PassengerDetails convertToPassengerDetails(Passengercb004273 p)
     {
         return new PassengerDetails(
                 p.getPassengerid(), p.getFname(), 
@@ -38,7 +44,7 @@ public class EntityHelper {
                 );
     }
     
-    public static BookingDetails convertToBookingDetails(Bookingcb004273 b)
+    private static BookingDetails convertToBookingDetails(Bookingcb004273 b)
     {
         return new BookingDetails(
                 b.getBookingno(), 
@@ -65,7 +71,7 @@ public class EntityHelper {
         
         for(Flightcb004273 b :fl)
         {
-            fdl.add(convertToFilghtDetails(b));
+            fdl.add(convertToFlightDetails(b));
         }
         
         return fdl;
@@ -95,18 +101,69 @@ public class EntityHelper {
         return pdl;
     }
     
-    public static Aircraftcb004273 convertToAircraftEntity(AircraftDetails ad)
+    private static Aircraftcb004273 convertToAircraftEntity(AircraftDetails ad)
     {
         return new Aircraftcb004273(ad.getAircraftid(), ad.getManufacturer(),
                                     ad.getDetails(), ad.getCapacity(), null);
     }
     
-    public static Bookingcb004273 convertToBookingEntity(BookingDetails bd)
+    private static Bookingcb004273 convertToBookingEntity(BookingDetails bd)
     {
         return new Bookingcb004273(
                                     bd.getBookingno(),
-                                    null,
-                                    null
+                                    db.getPassengerEntityById(bd.getPassengerId()),
+                                    db.getFlightEntityById(bd.getFlightId())
                                     );
+    } 
+    
+    private static Flightcb004273 convertToFlightEntity(FlightDetails fd)
+    {
+        return new Flightcb004273(fd.getFlightno(),
+                fd.getDeptairport(), fd.getArrairport(), fd.getDepdate(), fd.getArrdate(),
+                fd.getCapacity(), null,db.getAircraftEntityById(fd.getAircraftId()));
+    }
+    
+    private static Passengercb004273 convertToPassengerEntity(PassengerDetails pd)
+    {
+        return new Passengercb004273(pd.getPassengerid(), pd.getFname(),
+                                    pd.getLname(), null);
+    }
+    
+    public static RecordDetails convertToDetails(RecordEntity obj)
+    {
+         if(obj instanceof Aircraftcb004273)
+                return convertToAircraftDetails((Aircraftcb004273)obj);
+         else if(obj instanceof Flightcb004273)
+                return convertToFlightDetails((Flightcb004273)obj);
+         else if(obj instanceof Bookingcb004273)
+                return convertToBookingDetails((Bookingcb004273)obj);
+         else if(obj instanceof Passengercb004273)
+                return convertToPassengerDetails((Passengercb004273)obj);
+         
+         return null;
+    }
+    
+    public static RecordEntity convertToEntity(RecordDetails obj)
+    {
+         if(obj instanceof AircraftDetails)
+                return convertToAircraftEntity((AircraftDetails)obj);
+         else if(obj instanceof FlightDetails)
+                return convertToFlightEntity((FlightDetails)obj);
+         else if(obj instanceof BookingDetails)
+                return convertToBookingEntity((BookingDetails)obj);
+         else if(obj instanceof PassengerDetails)
+                return convertToPassengerEntity((PassengerDetails)obj);
+         
+         return null;
+    }
+    
+    public static <T> List<T> convertToDetailsList(Class<T> cls , List<RecordEntity> lst)
+    {
+            List<T> newlst = new ArrayList<>();
+            
+            for(RecordEntity obj :lst){
+                newlst.add((T)convertToDetails(obj));
+            }
+            return newlst;
     }
 }

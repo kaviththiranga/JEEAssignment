@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Passengercb004273.findByPassengerid", query = "SELECT p FROM Passengercb004273 p WHERE p.passengerid = :passengerid"),
     @NamedQuery(name = "Passengercb004273.findByFname", query = "SELECT p FROM Passengercb004273 p WHERE p.fname = :fname"),
     @NamedQuery(name = "Passengercb004273.findByLname", query = "SELECT p FROM Passengercb004273 p WHERE p.lname = :lname")})
-public class Passengercb004273 implements Serializable {
+public class Passengercb004273 implements Serializable, RecordEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.ejb.Remote;
 import kavith.jee.assignment.utils.AircraftDetails;
 import kavith.jee.assignment.utils.BookingDetails;
+import kavith.jee.assignment.utils.RecordDetails;
 
 /**
  *
@@ -16,12 +17,8 @@ import kavith.jee.assignment.utils.BookingDetails;
  */
 @Remote
 public interface AirlineAdminServiceBeanRemote {
-    void createRecord(Object obj);
-    void updateRecord(Object obj);
-    void deleteRecord(Object obj);
-    List<BookingDetails> getBookingsByPassenger(String passengerID);
-    List<BookingDetails> getBookingsByFlight(String flightID);
-    boolean placeABooking(BookingDetails bd);
-    Map<String,Integer> getAvailableNoOfSeatsInAllFlights();
-    List<AircraftDetails> getAllUnallocatedAircrafts();   
+    void createRecord(RecordDetails obj);
+    void updateRecord(RecordDetails obj);
+    void deleteRecord(RecordDetails obj);    
+    boolean placeABooking(BookingDetails bd);   
 }

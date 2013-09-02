@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Aircraftcb004273.findByManufacturer", query = "SELECT a FROM Aircraftcb004273 a WHERE a.manufacturer = :manufacturer"),
     @NamedQuery(name = "Aircraftcb004273.findByDetails", query = "SELECT a FROM Aircraftcb004273 a WHERE a.details = :details"),
     @NamedQuery(name = "Aircraftcb004273.findByCapacity", query = "SELECT a FROM Aircraftcb004273 a WHERE a.capacity = :capacity")})
-public class Aircraftcb004273 implements Serializable {
+public class Aircraftcb004273 implements Serializable, RecordEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
