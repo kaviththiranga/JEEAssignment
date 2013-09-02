@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Aircraftcb004273.findByAircraftid", query = "SELECT a FROM Aircraftcb004273 a WHERE a.aircraftid = :aircraftid"),
     @NamedQuery(name = "Aircraftcb004273.findByManufacturer", query = "SELECT a FROM Aircraftcb004273 a WHERE a.manufacturer = :manufacturer"),
     @NamedQuery(name = "Aircraftcb004273.findByDetails", query = "SELECT a FROM Aircraftcb004273 a WHERE a.details = :details"),
+    @NamedQuery(name = "Aircraftcb004273.findUnAllocated", query = "SELECT DISTINCT a FROM Aircraftcb004273 a WHERE a.flightcb004273List IS EMPTY"),
     @NamedQuery(name = "Aircraftcb004273.findByCapacity", query = "SELECT a FROM Aircraftcb004273 a WHERE a.capacity = :capacity")})
 public class Aircraftcb004273 implements Serializable, RecordEntity {
     private static final long serialVersionUID = 1L;

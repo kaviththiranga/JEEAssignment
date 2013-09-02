@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import kavith.jee.assignment.entity.Flightcb004273;
 import kavith.jee.assignment.utils.*;
 
 /**
@@ -25,9 +26,7 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
     @PersistenceContext
     private EntityManager em;
     
-    @EJB private DataQueryServiceLocal dbLocal;
-    @EJB private DataQuerySerivceBeanRemote dbRemote;    
-    
+    @EJB private DataQueryServiceLocal dbLocal;    
 
     @Override
     public void createRecord(RecordDetails obj) {        
@@ -58,6 +57,27 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
 
     @Override
     public boolean placeABooking(BookingDetails bd) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        Flightcb004273 flight = dbLocal.getFlightEntityById(bd.getFlightId());
+        
+        if(flight.getCapacity() > flight.getBookingcb004273List().size())
+        {
+            try{
+                em.persist(EntityHelper.convertToEntity(bd));
+                logger.log(Level.INFO, "Booking {0} was placed successfully.", 
+                            new Object[]{bd.getBookingno()});
+                return true;
+            }catch(Throwable t)
+            {
+                logger.log(Level.INFO, "Error placing the booking {1}. Msg {0}", 
+                           new Object[]{t.getMessage(),bd.getBookingno()});
+                return false;
+            }
+        }
+        
+        logger.log(Level.INFO, "Error placing the booking {0}. Flight is already full.", 
+                           new Object[]{bd.getBookingno()});
+        
+        return false;
     }   
 }

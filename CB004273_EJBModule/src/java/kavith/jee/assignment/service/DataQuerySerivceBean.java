@@ -5,6 +5,7 @@
 package kavith.jee.assignment.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -18,7 +19,7 @@ import kavith.jee.assignment.entity.*;
  *
  * @author KavithThiranga
  */
-@Stateless(mappedName = "DataQuerySerivce")
+@Stateless
 public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQueryServiceLocal {
 
     @PersistenceContext
@@ -85,13 +86,25 @@ public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQuer
     }
 
     @Override
-    public Map<String, Integer> getAvailableNoOfSeatsInAllFlights() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Map<String, Short> getAvailableNoOfSeatsInAllFlights() {
+        List<Flightcb004273> flights = em.createNamedQuery("Flightcb004273.findAll").getResultList();
+        Map<String, Short> results = new HashMap<>();
+        
+        for(Flightcb004273 f : flights)
+        {
+            results.put(f.getFlightno(),                     
+                         (short) (f.getCapacity() - f.getBookingcb004273List().size()));
+        }
+        return results;
     }
 
     @Override
     public List<AircraftDetails> getAllUnallocatedAircrafts() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return EntityHelper.convertToDetailsList(
+                                    AircraftDetails.class,
+                                    em.createNamedQuery("Aircraftcb004273.findUnAllocated").
+                                      getResultList()
+                                    );
     }
 
 }
