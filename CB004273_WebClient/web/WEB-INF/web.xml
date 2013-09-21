@@ -13,4 +13,14 @@
             30
         </session-timeout>
     </session-config>
+    <ejb-ref>
+        <ejb-ref-name>AirlineAdminServiceBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>kavith.jee.assignment.service.AirlineAdminServiceBeanRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>DataQuerySerivceBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>kavith.jee.assignment.service.DataQuerySerivceBeanRemote</remote>
+    </ejb-ref>
 </web-app>

@@ -12,6 +12,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Airline Web Client</title>
         <link href="<%=request.getContextPath()%>/includes/styles.css" rel="stylesheet"/>
+        <link href="<%=request.getContextPath()%>/includes/css/font-awesome.css" rel="stylesheet"/>
+        <link href="<%=request.getContextPath()%>/includes/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+        <script type="text/javascript"  src="<%=request.getContextPath()%>/includes/jquery.js"></script>
+        <script type="text/javascript"  src="<%=request.getContextPath()%>/includes/scripts.js"></script>
+        <script type="text/javascript"  src="<%=request.getContextPath()%>/includes/bootstrap-datetimepicker.min.js"></script>
     </head>
     <body>
         <div id="mainbody" class="container">
@@ -20,14 +25,6 @@
                 <div class="span1"></div>
                 <div id="body center" class="span10">
 
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            <a class="brand" href="#">Airline Services</a>
-                            <ul class="nav">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    
+                                
                    

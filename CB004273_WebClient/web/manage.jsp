@@ -3,8 +3,8 @@
     <div class="navbar-inner">
         <a class="brand" href="#">Airline Services</a>
         <ul class="nav">
-            <li class="active"><a href="<%=request.getContextPath()%>">Home</a></li>
-            <li><a href="<%=request.getContextPath()%>/manage.jsp">Manage</a></li>
+            <li ><a href="<%=request.getContextPath()%>">Home</a></li>
+            <li class="active"><a href="<%=request.getContextPath()%>/manage.jsp">Manage</a></li>
             <li><a href="booking.jsp">Place a Booking</a></li>
             <li><a href="query.jsp">Query Information</a></li>
         </ul>
