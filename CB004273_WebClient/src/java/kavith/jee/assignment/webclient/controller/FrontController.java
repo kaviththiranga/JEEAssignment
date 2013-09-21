@@ -47,19 +47,20 @@ public class FrontController extends HttpServlet {
         else if(action.equals("list")){
             switch(type){
                 case "aircraft":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/aircraft/list.jsp");
-                    break;
-                case "flight":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/flight/list.jsp");
+                    dispatcher = request.getRequestDispatcher( "/aircraft/list.jsp");
                     request.setAttribute("aircrafts", Controller.getDataQuerySerivceBeanRemote().getListofAircrafts());
                     break;
+                case "flight":
+                    dispatcher = request.getRequestDispatcher("/flight/list.jsp");
+                    request.setAttribute("flights", Controller.getDataQuerySerivceBeanRemote().getListofFilghts());
+                    break;
                 case "passenger":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/passenger/list.jsp");                    
+                    dispatcher = request.getRequestDispatcher( "/passenger/list.jsp");                    
+                     request.setAttribute("passengers", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
                     break;
                 case "booking":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/booking/list.jsp");
-                    request.setAttribute("flights", Controller.getDataQuerySerivceBeanRemote().getListofFilghts());
-                    request.setAttribute("passengers", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
+                    dispatcher = request.getRequestDispatcher("/booking/list.jsp");
+                    request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
                     break;       
             }        
         }
