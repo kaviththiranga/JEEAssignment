@@ -107,4 +107,40 @@ public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQuer
                                     );
     }
 
+    @Override
+    public List<AircraftDetails> getListofAircrafts() {
+        return EntityHelper.convertToDetailsList(
+                                    AircraftDetails.class,
+                                    em.createNamedQuery("Aircraftcb004273.findAll")
+                                        .getResultList()
+                                    );
+    }   
+
+    @Override
+    public List<BookingDetails> getListofBookings() {
+        return EntityHelper.convertToDetailsList(
+                                    BookingDetails.class,
+                                    em.createNamedQuery("Bookingcb004273.findAll")
+                                        .getResultList()
+                                    );
+    }
+
+    @Override
+    public List<FlightDetails> getListofFilghts() {
+        return EntityHelper.convertToDetailsList(
+                                    FlightDetails.class,
+                                    em.createNamedQuery("Flightcb004273.findAll")
+                                        .getResultList()
+                                    );
+    }
+
+    @Override
+    public List<PassengerDetails> getListofPassengers() {
+        return EntityHelper.convertToDetailsList(
+                                    PassengerDetails.class,
+                                    em.createNamedQuery("Passengercb004273.findAll")
+                                        .getResultList()
+                                    );
+    }
+
 }
