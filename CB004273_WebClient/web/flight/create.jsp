@@ -55,12 +55,12 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputArrTime">Arriving Time</label>
+            <label class="control-label" for="inputAircraft">Aircraft</label>
             <div class="controls">
-                <select name="flightaircraft">                    
+                <select name="inputAircraft">                    
                     <c:forEach var="aircraft" items="${aircrafts}">
 
-                        <option>${aircraft}</option>
+                        <option>${aircraft.aircraftid}</option>
 
                     </c:forEach>
                 </select>

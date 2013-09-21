@@ -21,26 +21,49 @@ public class FrontController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher dispatcher;
+        RequestDispatcher dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() +"/index.jsp");
         String action = request.getParameter("action");
         String type =   request.getParameter("type");
         
         if(action.equals("create")){
             switch(type){
                 case "aircraft":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/aircraft/create.jsp");
+                    dispatcher = request.getRequestDispatcher("/Aircraft/create.jsp");
                     break;
                 case "flight":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/flight/create.jsp");
+                    dispatcher = request.getRequestDispatcher( "/flight/create.jsp");
+                    request.setAttribute("aircrafts", Controller.getDataQuerySerivceBeanRemote().getListofAircrafts());
                     break;
                 case "passenger":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/passenger/create.jsp");
+                    dispatcher = request.getRequestDispatcher( "/passenger/create.jsp");                    
                     break;
                 case "booking":
-                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/booking/create.jsp");
+                    dispatcher = request.getRequestDispatcher( "/booking/create.jsp");
+                    request.setAttribute("flights", Controller.getDataQuerySerivceBeanRemote().getListofFilghts());
+                    request.setAttribute("passengers", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
                     break;       
             }        
         }
+        else if(action.equals("list")){
+            switch(type){
+                case "aircraft":
+                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/aircraft/list.jsp");
+                    break;
+                case "flight":
+                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/flight/list.jsp");
+                    request.setAttribute("aircrafts", Controller.getDataQuerySerivceBeanRemote().getListofAircrafts());
+                    break;
+                case "passenger":
+                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/passenger/list.jsp");                    
+                    break;
+                case "booking":
+                    dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() + "/booking/list.jsp");
+                    request.setAttribute("flights", Controller.getDataQuerySerivceBeanRemote().getListofFilghts());
+                    request.setAttribute("passengers", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
+                    break;       
+            }        
+        }
+        dispatcher.forward(request, response);
         
     }
 
