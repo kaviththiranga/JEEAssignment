@@ -26,4 +26,8 @@ public interface DataQuerySerivceBeanRemote {
     List<BookingDetails> getBookingsByFlight(String flightID);    
     Map<String,Short> getAvailableNoOfSeatsInAllFlights();
     List<AircraftDetails> getAllUnallocatedAircrafts();
+    List<AircraftDetails> getListofAircrafts();
+    List<BookingDetails> getListofBookings();
+    List<FlightDetails> getListofFilghts();
+    List<PassengerDetails> getListofPassengers();
 }
