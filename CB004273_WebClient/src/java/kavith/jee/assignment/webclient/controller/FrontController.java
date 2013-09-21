@@ -47,7 +47,7 @@ public class FrontController extends HttpServlet {
         else if(action.equals("list")){
             switch(type){
                 case "aircraft":
-                    dispatcher = request.getRequestDispatcher( "/aircraft/list.jsp");
+                    dispatcher = request.getRequestDispatcher( "/Aircraft/list.jsp");
                     request.setAttribute("aircrafts", Controller.getDataQuerySerivceBeanRemote().getListofAircrafts());
                     break;
                 case "flight":

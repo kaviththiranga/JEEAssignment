@@ -1,7 +1,7 @@
 <%@ include file="/includes/header.jsp" %>
 <div class="navbar">
     <div class="navbar-inner">
-        <a class="brand" href="#">Schedule a flight</a>
+        <a class="brand" href="#">Place a booking</a>
         <ul class="nav">
             <li><a href="<%=request.getContextPath()%>">Home</a></li>
             <li><a href="<%=request.getContextPath()%>/manage.jsp">Manage</a></li>
