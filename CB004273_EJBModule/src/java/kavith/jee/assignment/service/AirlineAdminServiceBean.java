@@ -4,7 +4,6 @@
  */
 package kavith.jee.assignment.service;
 
-import java.lang.Object;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -29,11 +28,13 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
     @EJB private DataQueryServiceLocal dbLocal;    
 
     @Override
-    public void createRecord(RecordDetails obj) {        
+    public void createRecord(RecordDetails obj) {  
+        
         try{
             em.persist((EntityHelper.convertToEntity(obj)));
         }catch(Throwable t){
             logger.log(Level.SEVERE, "Failed to persist entity. Msg {0}", new Object[]{t.getMessage()});
+            throw t;
         }
     }
 
@@ -43,6 +44,7 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
             em.merge(EntityHelper.convertToEntity(obj));
         }catch(Throwable t){
             logger.log(Level.SEVERE, "Failed to merge entity. Msg {0}", new Object[]{t.getMessage()});
+             throw t;
         }
     }
 
@@ -52,11 +54,12 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
             em.remove((EntityHelper.convertToEntity(obj)));
         }catch(Throwable t){
             logger.log(Level.SEVERE, "Failed to remove entity. Msg {0}", new Object[]{t.getMessage()});
+             throw t;
         }
     } 
 
     @Override
-    public boolean placeABooking(BookingDetails bd) {
+    public String placeABooking(BookingDetails bd) {
         
         Flightcb004273 flight = dbLocal.getFlightEntityById(bd.getFlightId());
         
@@ -64,20 +67,20 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
         {
             try{
                 em.persist(EntityHelper.convertToEntity(bd));
-                logger.log(Level.INFO, "Booking {0} was placed successfully.", 
+                logger.log(Level.INFO, "Booking "+bd.getBookingno()+" was placed successfully.", 
                             new Object[]{bd.getBookingno()});
-                return true;
+                return "Booking "+bd.getBookingno()+" was placed successfully.";
             }catch(Throwable t)
             {
-                logger.log(Level.INFO, "Error placing the booking {1}. Msg {0}", 
+                logger.log(Level.INFO, "Error placing the booking  "+bd.getBookingno()+". Msg "+t.toString(), 
                            new Object[]{t.getMessage(),bd.getBookingno()});
-                return false;
+                return "Error placing the booking  "+bd.getBookingno()+". Msg "+t.toString();
             }
         }
         
         logger.log(Level.INFO, "Error placing the booking {0}. Flight is already full.", 
                            new Object[]{bd.getBookingno()});
         
-        return false;
+        return "Error placing the booking "+bd.getBookingno()+". Flight is already full.";
     }   
 }

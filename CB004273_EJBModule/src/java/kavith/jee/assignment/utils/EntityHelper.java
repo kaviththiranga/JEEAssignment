@@ -6,18 +6,24 @@ package kavith.jee.assignment.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import kavith.jee.assignment.entity.*;
-import kavith.jee.assignment.service.DataQuerySerivceBean;
+import kavith.jee.assignment.service.DataQuerySerivceBeanRemote;
+import kavith.jee.assignment.service.DataQueryServiceLocal;
 
 /**
  *
  * @author KavithThiranga
  */
-public class EntityHelper {
+public class EntityHelper { 
+    static DataQueryServiceLocal dbLocal = lookupDataQuerySerivceBeanLocal();
     
-    @EJB
-    private static DataQuerySerivceBean db;
+    static DataQuerySerivceBeanRemote  dbRemote = lookupDataQuerySerivceBeanRemote();
+    
     
     private static AircraftDetails convertToAircraftDetails(Aircraftcb004273 ac)
     {
@@ -111,8 +117,8 @@ public class EntityHelper {
     {
         return new Bookingcb004273(
                                     bd.getBookingno(),
-                                    db.getPassengerEntityById(bd.getPassengerId()),
-                                    db.getFlightEntityById(bd.getFlightId())
+                                    dbLocal.getPassengerEntityById(bd.getPassengerId()),
+                                    dbLocal.getFlightEntityById(bd.getFlightId())
                                     );
     } 
     
@@ -120,7 +126,7 @@ public class EntityHelper {
     {
         return new Flightcb004273(fd.getFlightno(),
                 fd.getDeptairport(), fd.getArrairport(), fd.getDepdate(), fd.getArrdate(),
-                fd.getCapacity(), null,db.getAircraftEntityById(fd.getAircraftId()));
+                fd.getCapacity(), new ArrayList<Bookingcb004273>(),dbLocal.getAircraftEntityById(fd.getAircraftId()));
     }
     
     private static Passengercb004273 convertToPassengerEntity(PassengerDetails pd)
@@ -166,4 +172,25 @@ public class EntityHelper {
             }
             return newlst;
     }
+
+    private static DataQuerySerivceBeanRemote lookupDataQuerySerivceBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (DataQuerySerivceBeanRemote) c.lookup("java:global/CB004273_EJBModule/DataQuerySerivceBean!kavith.jee.assignment.service.DataQuerySerivceBeanRemote");
+        } catch (NamingException ne) {
+            Logger.getLogger("EntityHelper").log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private static DataQueryServiceLocal lookupDataQuerySerivceBeanLocal() {
+        try {
+            Context c = new InitialContext();
+            return (DataQueryServiceLocal) c.lookup("java:global/CB004273_EJBModule/DataQuerySerivceBean!kavith.jee.assignment.service.DataQueryServiceLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger("EntityHelper").log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
 }
