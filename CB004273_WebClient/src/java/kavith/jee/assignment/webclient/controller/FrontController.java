@@ -5,12 +5,18 @@
 package kavith.jee.assignment.webclient.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import kavith.jee.assignment.utils.AircraftDetails;
+import kavith.jee.assignment.utils.BookingDetails;
+import kavith.jee.assignment.utils.FlightDetails;
+import kavith.jee.assignment.utils.PassengerDetails;
 /**
  *
  * @author KavithThiranga
@@ -21,7 +27,7 @@ public class FrontController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher(getServletContext().getContextPath() +"/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/manage.jsp");
         String action = request.getParameter("action");
         String type =   request.getParameter("type");
         
@@ -60,7 +66,7 @@ public class FrontController extends HttpServlet {
                     break;
                 case "booking":
                     dispatcher = request.getRequestDispatcher("/booking/list.jsp");
-                    request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
+                    request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofBookings());
                     break;       
             }        
         }
@@ -68,10 +74,99 @@ public class FrontController extends HttpServlet {
         
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/manage.jsp");
+        String action = request.getParameter("action");
+        String type =   request.getParameter("type");
+        
+        if(action.equals("create")){
+            switch(type){
+                //////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                case "aircraft":
+                        String aircraftid = request.getParameter("inputACID");
+                        String manufacturer = request.getParameter("inputManufacturer");
+                        String details = request.getParameter("inputDetails");
+                        String capacity = request.getParameter("inputCapacity");
+                          
+                        try{
+                            AircraftDetails ad = new AircraftDetails(aircraftid, manufacturer, details, Short.parseShort(capacity));
+                            Controller.getAirlineAdminServiceBeanRemote().createRecord(ad);
+                            request.setAttribute("msg", "Aircraft Record sucessfully created");
+                        }
+                        catch(Exception ex){
+                            request.setAttribute("msg", "Aircraft Record creation failed.");
+                            Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
+                        }
+                        request.setAttribute("aircrafts", Controller.getDataQuerySerivceBeanRemote().getListofAircrafts());
+                        dispatcher = request.getRequestDispatcher( "/Aircraft/list.jsp");
+                        break;
+                //////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                    
+                case "flight":
+                        String fid = request.getParameter("inputFID");
+                        String deptAirport = request.getParameter("inputDeptAirport");
+                        String arrAirport = request.getParameter("inputArrAirport");
+                        String deptTime = request.getParameter("inputDeptTime");
+                        String arrTime = request.getParameter("inputArrTime");
+                        String cap = request.getParameter("inputCapcity");
+                        String aircraft = request.getParameter("inputAircraft");
+                          
+                        try{
+                            FlightDetails fd = new FlightDetails(fid, deptAirport, arrAirport, 
+                                                        (new SimpleDateFormat("dd/MM/yyyy hh:mm")).parse(deptTime), 
+                                                        (new SimpleDateFormat("dd/MM/yyyy hh:mm")).parse(arrTime),
+                                                        Short.parseShort(cap), aircraft);
+                            Controller.getAirlineAdminServiceBeanRemote().createRecord(fd);
+                            request.setAttribute("msg", "Flight Record sucessfully created");
+                        }
+                        catch(Exception ex){
+                            request.setAttribute("msg", "Flight Record creation failed.");
+                            Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
+                        }
+                    
+                    dispatcher = request.getRequestDispatcher( "/flight/list.jsp");
+                    request.setAttribute("flights", Controller.getDataQuerySerivceBeanRemote().getListofFilghts());
+                    break;
+                //////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                    
+                case "passenger":
+                    String pid = request.getParameter("inputPID");
+                    String fn = request.getParameter("inputFN");
+                    String ln = request.getParameter("inputLN");
+                    
+                    try{
+                            PassengerDetails pd = new PassengerDetails(pid, fn, ln);
+                            Controller.getAirlineAdminServiceBeanRemote().createRecord(pd);
+                            request.setAttribute("msg", "Passenger Record sucessfully created");
+                        }
+                        catch(Exception ex){
+                            request.setAttribute("msg", "Passenger Record creation failed.");
+                            Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
+                        }
+                    dispatcher = request.getRequestDispatcher( "/passenger/list.jsp");      
+                    request.setAttribute("passengers", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
+                    break;
+                //////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                case "booking":
+                    String inputBID = request.getParameter("inputBID");
+                    String inputPassenger = request.getParameter("inputPassenger");
+                    String inputFlight = request.getParameter("inputFlight");
+                    
+                    try{
+                            BookingDetails bd = new BookingDetails(inputBID, inputPassenger, inputFlight);
+                            Controller.getAirlineAdminServiceBeanRemote().createRecord(bd);
+                            request.setAttribute("msg", "Booking request sucessfully placed");
+                        }
+                        catch(Exception ex){
+                            request.setAttribute("msg", "Failed placing the booking.");
+                            Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
+                        }
+                    dispatcher = request.getRequestDispatcher( "/booking/list.jsp");
+                    request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofBookings());
+                    break;       
+            }        
+        }
+        dispatcher.forward(request, response);
     }
 
    

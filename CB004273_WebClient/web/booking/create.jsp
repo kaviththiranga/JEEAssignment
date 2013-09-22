@@ -1,21 +1,11 @@
 <%@ include file="/includes/header.jsp" %>
-<div class="navbar">
-    <div class="navbar-inner">
-        <a class="brand" href="#">Place a booking</a>
-        <ul class="nav">
-            <li><a href="<%=request.getContextPath()%>">Home</a></li>
-            <li><a href="<%=request.getContextPath()%>/manage.jsp">Manage</a></li>
-            <li><a href="../booking.jsp">Place a Booking</a></li>
-            <li><a href="../query.jsp">Query Information</a></li>
-        </ul>
-    </div>
-</div>
+
 <div class="well well-large">
-    <form class="form-horizontal" action="/do?action=create&type=booking" method="POST">
+    <form class="form-horizontal" action="<%=request.getContextPath()%>/do?action=create&type=booking" method="POST">
         <div class="control-group">
             <label class="control-label" for="inputBID">Booking No</label>
             <div class="controls">
-                <input type="text" id="inputBID" placeholder="Booking No">
+                <input type="text" name="inputBID" id="inputBID" placeholder="Booking No">
             </div>
         </div>   
         <div class="control-group">
