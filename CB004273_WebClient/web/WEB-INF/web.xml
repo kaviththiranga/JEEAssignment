@@ -23,4 +23,7 @@
         <ejb-ref-type>Session</ejb-ref-type>
         <remote>kavith.jee.assignment.service.DataQuerySerivceBeanRemote</remote>
     </ejb-ref>
+    <welcome-file-list>
+        <welcome-file>manage.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

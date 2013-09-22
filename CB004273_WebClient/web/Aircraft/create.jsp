@@ -16,8 +16,7 @@
         <div class="control-group">
             <label class="control-label" for="inputDetails">Details</label>
             <div class="controls">
-               <textarea rows="4" name="inputDetails" cols="20" id="inputDetails" >
-                </textarea>
+               <textarea rows="4" name="inputDetails" cols="20" id="inputDetails" ></textarea>
             </div>
         </div>
         <div class="control-group">

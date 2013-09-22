@@ -29,13 +29,12 @@
                             <a class="brand" href="<%=request.getContextPath()%>/manage.jsp">Airline Service</a>
                             <ul class="nav">
                                 <li><a href="<%=request.getContextPath()%>/manage.jsp">Manage</a></li>
-                                <li><a href="<%=request.getContextPath()%>/booking.jsp">Place a Booking</a></li>
-                                <li><a href="<%=request.getContextPath()%>/query.jsp">Query Information</a></li>
+                                <li><a href="<%=request.getContextPath()%>/do?action=BookingService">Place a Booking</a></li>
+                                <li><a href="<%=request.getContextPath()%>/do?action=QueryService">Query Information</a></li>
                             </ul>
                         </div>
                     </div>
                     <c:if test="${not empty msg}">
-
                         <div class="alert alert-info" style="margin-left: 30px;margin-right: 30px;">
                             <p><i class="icon-info-sign" style="margin-right: 5px;"></i>${msg}</p>
                         </div>

@@ -20,6 +20,6 @@
             </c:forEach>
         </tbody>
     </table>
-    </div>       
+</div>       
 
 <%@ include file="/includes/footer.jsp" %>
