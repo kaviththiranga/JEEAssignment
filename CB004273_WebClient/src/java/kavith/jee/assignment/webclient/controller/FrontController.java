@@ -178,15 +178,15 @@ public class FrontController extends HttpServlet {
             String inputPassenger = request.getParameter("inputPassenger");
             String inputFlight = request.getParameter("inputFlight");
 
-            try {
+//            try {
                 BookingDetails bd = new BookingDetails(inputBID, inputPassenger, inputFlight);
                 
-                Controller.sendBookingRequest(bd);
+                (new Controller()).sendBookingRequest(bd);
                 request.setAttribute("msg", "Message successfully sent");
-            } catch (Exception ex) {
-                request.setAttribute("msg", "Error happened");
-                Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
-            }
+//            } catch (Exception ex) {
+//                request.setAttribute("msg", "Error happened");
+//                Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
+//            }
 
             dispatcher = request.getRequestDispatcher("/booking/list.jsp");
             request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofBookings());

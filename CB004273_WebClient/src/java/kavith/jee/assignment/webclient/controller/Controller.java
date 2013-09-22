@@ -27,11 +27,11 @@ import kavith.jee.assignment.utils.BookingDetails;
  */
 public class Controller {
     
-    @Resource(mappedName = "java:comp/DefaultJMSConnectionFactory")
-    private static ConnectionFactory connectionFactory;
+    @Resource(mappedName = "jms/DefaultJMSConnectionFactory")
+    private ConnectionFactory connectionFactory;
 
-    @Resource(mappedName = "StaffTopic")
-    private static Topic topic;
+    @Resource(mappedName = "jms/FilghtBookingService")
+    private Topic topic;
     
     public static AirlineAdminServiceBeanRemote getAirlineAdminServiceBeanRemote() {
         try {
@@ -53,7 +53,7 @@ public class Controller {
         }
     }
     
-    public static void sendBookingRequest(BookingDetails booking){
+    public void sendBookingRequest(BookingDetails booking){
         Connection connection = null;
         Session session = null;
         MessageProducer messageProducer = null;
