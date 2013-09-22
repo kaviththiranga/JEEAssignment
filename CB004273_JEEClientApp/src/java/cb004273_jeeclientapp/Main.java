@@ -5,32 +5,59 @@
 package cb004273_jeeclientapp;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
-import kavith.jee.assignment.service.AirlineAdminServiceBeanRemote;
-import kavith.jee.assignment.service.DataQuerySerivceBeanRemote;
-import kavith.jee.assignment.utils.AircraftDetails;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
+import javax.jms.Topic;
+import kavith.jee.assignment.utils.BookingDetails;
 
 /**
  *
  * @author KavithThiranga
  */
 public class Main {
-    @EJB
-    private static DataQuerySerivceBeanRemote dataQuerySerivceBean;
-    @EJB
-    private static AirlineAdminServiceBeanRemote airlineAdminServiceBean;
+    
+    @Resource(mappedName = "java:comp/DefaultJMSConnectionFactory")
+    private static ConnectionFactory connectionFactory;
 
-    /**
-     * @param args the command line arguments
-     */
+    @Resource(mappedName = "FilghtBookingService")
+    private static Topic topic;
+    
     public static void main(String[] args) {
-       //AircraftDetails ac = new AircraftDetails("001", "New", "detals", new Short("150"));
-       //airlineAdminServiceBean.createRecord(ac);
-        
-        for(AircraftDetails ad: dataQuerySerivceBean.getAllUnallocatedAircrafts()){
-        
-            System.out.println("sdsd "+ad.getAircraftid());
+        Connection connection = null;
+        Session session = null;
+        MessageProducer messageProducer = null;
+        ObjectMessage message = null;
+
+        try {
+            connection = connectionFactory.createConnection();
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            messageProducer = session.createProducer(topic);
+            message = session.createObjectMessage();
+            
+            BookingDetails bd = new BookingDetails("B013", "P008", "VR001");
+            message.setObject(bd);
+            messageProducer.send(message);
+            
+
+            System.out.println("To see if the bean received the messages,");
+            System.out.println(
+                    " check <install_dir>/domains/domain1/logs/server.log.");
+        } catch (JMSException e) {
+            System.out.println("Exception occurred: " + e.toString());
+
         }
-       
+
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (JMSException ex) {
+            }
+        }
+
+        System.exit(0);
     }
 }
