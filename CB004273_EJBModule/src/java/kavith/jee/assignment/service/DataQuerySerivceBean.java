@@ -92,7 +92,7 @@ public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQuer
         for(Flightcb004273 f : flights)
         {
             results.put(f.getFlightno(),                     
-                         (short) (f.getCapacity() - f.getBookingcb004273List().size()));
+                         (short) (f.getCapacity() - getBookingsByFlight(f.getFlightno()).size()));
         }
         return results;
     }

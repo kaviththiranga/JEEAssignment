@@ -25,7 +25,8 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
     @PersistenceContext
     private EntityManager em;
     
-    @EJB private DataQueryServiceLocal dbLocal;    
+    @EJB private DataQueryServiceLocal dbLocal;
+    @EJB private DataQuerySerivceBeanRemote dbRemote;
 
     @Override
     public void createRecord(RecordDetails obj) {  
@@ -63,7 +64,7 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
         
         Flightcb004273 flight = dbLocal.getFlightEntityById(bd.getFlightId());
         
-        if(flight.getCapacity() > flight.getBookingcb004273List().size())
+        if(flight.getCapacity() > dbRemote.getBookingsByFlight(bd.getFlightId()).size())
         {
             try{
                 em.persist(EntityHelper.convertToEntity(bd));
