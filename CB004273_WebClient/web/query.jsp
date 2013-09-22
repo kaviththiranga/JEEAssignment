@@ -66,7 +66,7 @@
         <thead>
             <tr>
                 <th>Flight No</th>
-                <th>Available seats/th>
+                <th>Available seats</th>
             </tr>
         </thead>
         <tbody>
