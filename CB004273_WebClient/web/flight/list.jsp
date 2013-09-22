@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>Flight No</th>
-                <th>Departure Airport</th
+                <th>Departure Airport</th>
                 <th>Arrival Airport</th>
                 <th>Departure Time</th>
                 <th>Arrival Time</th>
