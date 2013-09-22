@@ -4,7 +4,6 @@
  */
 package kavith.jee.assignment.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +79,7 @@ public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQuer
         return EntityHelper.convertToDetailsList(
                                     BookingDetails.class,
                                     em.createNamedQuery("Bookingcb004273.findByFlightid").
-                                      setParameter("flightid", flightID).
+                                      setParameter("flightno", flightID).
                                       getResultList()
                                     );
     }
