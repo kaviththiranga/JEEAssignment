@@ -4,10 +4,12 @@
  */
 package kavith.jee.assignment.utils;
 
+import java.io.Serializable;
+
 /**
  * Just a markup interface
  * @author KavithThiranga
  */
-public interface RecordDetails {
+public interface RecordDetails extends Serializable{
     
 }
