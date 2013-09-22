@@ -1,4 +1,5 @@
 <%@ include file="/includes/header.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="well well-large">
     <table class="table table-condensed">
@@ -19,8 +20,8 @@
                     <td>${flight.flightno}</td>
                     <td>${flight.deptairport}</td>
                     <td>${flight.arrairport}</td>
-                    <td>${flight.depdate}</td>
-                    <td>${flight.arrdate}</td>
+                    <td><fmt:formatDate value="${flight.depdate}" pattern="yy.MM.dd HH:mm" /></td>
+                    <td><fmt:formatDate value="${flight.arrdate}" pattern="yy.MM.dd HH:mm" /></td>
                     <td>${flight.capacity}</td>
                     <td>${flight.aircraftId}</td>
                 </tr>

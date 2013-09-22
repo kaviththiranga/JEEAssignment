@@ -19,7 +19,7 @@
     </table>
 </div>
 <div class="well well-large">
-    <h4>Bookings by Flight BA001</h4>
+    <h4>Bookings for Flight BA001</h4>
     <table class="table table-condensed">
         <thead>
             <tr>
@@ -40,7 +40,7 @@
     </table>
 </div>
 <div class="well well-large">
-    <h4>Bookings by Flight VR001</h4>
+    <h4>Bookings for Flight VR001</h4>
     <table class="table table-condensed">
         <thead>
             <tr>

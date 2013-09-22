@@ -73,8 +73,7 @@ public class FrontController extends HttpServlet {
             dispatcher = request.getRequestDispatcher("/booking.jsp");
             request.setAttribute("passengers", Controller.getDataQuerySerivceBeanRemote().getListofPassengers());
             request.setAttribute("flights", Controller.getDataQuerySerivceBeanRemote().getListofFilghts());
-        }
-        else if (action.equals("QueryService")) {
+        } else if (action.equals("QueryService")) {
             dispatcher = request.getRequestDispatcher("/query.jsp");
             request.setAttribute("bookingsForPassengerP005", Controller.getDataQuerySerivceBeanRemote().getBookingsByPassenger("P005"));
             request.setAttribute("bookingsForFlight1", Controller.getDataQuerySerivceBeanRemote().getBookingsByFlight("BA001"));
@@ -175,7 +174,22 @@ public class FrontController extends HttpServlet {
                     break;
             }
         } else if (action.equals("BookingService")) {
-            
+            String inputBID = request.getParameter("inputBID");
+            String inputPassenger = request.getParameter("inputPassenger");
+            String inputFlight = request.getParameter("inputFlight");
+
+            try {
+                BookingDetails bd = new BookingDetails(inputBID, inputPassenger, inputFlight);
+                
+                Controller.sendBookingRequest(bd);
+                request.setAttribute("msg", "Message successfully sent");
+            } catch (Exception ex) {
+                request.setAttribute("msg", "Error happened");
+                Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
+            }
+
+            dispatcher = request.getRequestDispatcher("/booking/list.jsp");
+            request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofBookings());
         }
         dispatcher.forward(request, response);
     }
