@@ -27,10 +27,10 @@ import kavith.jee.assignment.utils.BookingDetails;
  */
 public class Controller {
     
-    @Resource(mappedName = "jms/DefaultJMSConnectionFactory")
+   @Resource(lookup = "jms/DefaultJMSConnectionFactory")
     private ConnectionFactory connectionFactory;
 
-    @Resource(mappedName = "jms/FilghtBookingService")
+    @Resource(lookup = "jms/FilghtBookingService")
     private Topic topic;
     
     public static AirlineAdminServiceBeanRemote getAirlineAdminServiceBeanRemote() {

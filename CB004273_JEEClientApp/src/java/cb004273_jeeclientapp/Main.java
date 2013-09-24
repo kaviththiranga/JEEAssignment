@@ -38,7 +38,7 @@ public class Main {
             messageProducer = session.createProducer(topic);
             message = session.createObjectMessage();
             
-            BookingDetails bd = new BookingDetails("B013", "P008", "VR001");
+            BookingDetails bd = new BookingDetails("B014", "P008", "VR001");
             message.setObject(bd);
             messageProducer.send(message);
             
