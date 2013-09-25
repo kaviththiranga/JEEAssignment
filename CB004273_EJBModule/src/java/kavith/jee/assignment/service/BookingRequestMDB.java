@@ -49,14 +49,16 @@ public class BookingRequestMDB implements MessageListener {
             if (message instanceof ObjectMessage) {
                 bd = (BookingDetails)((ObjectMessage)message).getObject();
                 
-                em.persist(EntityHelper.convertToEntity(bd));
-                LOG.log(Level.OFF, "Successfully placed the booking request with booking number "+bd.getBookingno());
-               
+                em.persist(EntityHelper.convertToEntity(bd));               
             }
         } catch (JMSException ex) {
-            mdc.setRollbackOnly();
+           
+        }
+        catch (Exception ex){
+             mdc.setRollbackOnly();
                 LOG.log(Level.OFF, "Rolled back the booking request with booking number "+bd.getBookingno());
         }
+       
     }
 
     public void persist(Object object) {
