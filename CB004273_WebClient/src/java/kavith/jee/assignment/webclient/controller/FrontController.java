@@ -8,6 +8,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
+import javax.jms.Topic;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +31,11 @@ import kavith.jee.assignment.utils.PassengerDetails;
  * @author KavithThiranga
  */
 public class FrontController extends HttpServlet {
+
+    @Resource(mappedName = "java:comp/DefaultJMSConnectionFactory")
+    private ConnectionFactory connectionFactory;
+    @Resource(mappedName = "FilghtBookingService")
+    private Topic topic;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -178,15 +191,35 @@ public class FrontController extends HttpServlet {
             String inputPassenger = request.getParameter("inputPassenger");
             String inputFlight = request.getParameter("inputFlight");
 
-//            try {
+            Connection connection = null;
+            Session session = null;
+            MessageProducer messageProducer = null;
+            ObjectMessage message = null;
+
+            try {
+                connection = connectionFactory.createConnection();
+                session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+                messageProducer = session.createProducer(topic);
+                message = session.createObjectMessage();
+
                 BookingDetails bd = new BookingDetails(inputBID, inputPassenger, inputFlight);
+                message.setObject(bd);
+                messageProducer.send(message);
+
+
+                log("See if the bean received the messages,");
                 
-                (new Controller()).sendBookingRequest(bd);
-                request.setAttribute("msg", "Message successfully sent");
-//            } catch (Exception ex) {
-//                request.setAttribute("msg", "Error happened");
-//                Logger.getLogger("FrontController").log(Level.SEVERE, ex.getMessage());
-//            }
+            } catch (JMSException e) {
+                log("Exception occurred: " + e.toString());
+
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (JMSException ex) {
+                }
+            }
 
             dispatcher = request.getRequestDispatcher("/booking/list.jsp");
             request.setAttribute("bookings", Controller.getDataQuerySerivceBeanRemote().getListofBookings());
