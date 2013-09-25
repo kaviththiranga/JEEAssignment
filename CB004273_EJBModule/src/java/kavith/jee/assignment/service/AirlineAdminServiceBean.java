@@ -60,11 +60,9 @@ public class AirlineAdminServiceBean implements AirlineAdminServiceBeanRemote {
     } 
 
     @Override
-    public String placeABooking(BookingDetails bd) {
+    public String placeABooking(BookingDetails bd) {     
         
-        Flightcb004273 flight = dbLocal.getFlightEntityById(bd.getFlightId());
-        
-        if(flight.getCapacity() > dbRemote.getBookingsByFlight(bd.getFlightId()).size())
+        if(dbLocal.ifSeatsAvailable(bd.getFlightId()))
         {
             try{
                 em.persist(EntityHelper.convertToEntity(bd));

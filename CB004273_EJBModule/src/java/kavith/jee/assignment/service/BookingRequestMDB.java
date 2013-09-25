@@ -31,8 +31,6 @@ import kavith.jee.assignment.utils.EntityHelper;
 })
 public class BookingRequestMDB implements MessageListener {
     @EJB
-    private DataQuerySerivceBeanRemote dbRemote;
-    @EJB
     private DataQueryServiceLocal dbLocal;    
     
     @PersistenceContext(unitName = "CB004273_EJBModulePU")
@@ -54,13 +52,14 @@ public class BookingRequestMDB implements MessageListener {
         try {
             if (message instanceof ObjectMessage) {
                 bd = (BookingDetails)((ObjectMessage)message).getObject();
-                Flightcb004273 flight = dbLocal.getFlightEntityById(bd.getFlightId());
-                if(flight.getCapacity() > dbRemote.getBookingsByFlight(bd.getFlightId()).size())
+                LOG.log(Level.INFO, "Received booking request with booking number "+bd.getBookingno());
+                
+                if(dbLocal.ifSeatsAvailable(bd.getFlightId()))
                 {
                     em.persist(EntityHelper.convertToEntity(bd));    
-                    LOG.log(Level.OFF, "Successfully created booking request with booking number "+bd.getBookingno());
+                    LOG.log(Level.INFO, "Successfully created booking request with booking number "+bd.getBookingno());
                 }else{
-                    LOG.log(Level.OFF, "Error placing booking request with booking number "+bd.getBookingno()+". Flight is full.");
+                    LOG.log(Level.INFO, "Error placing booking request with booking number "+bd.getBookingno()+". Flight is full.");
                 }
             }
         } catch (JMSException ex) {
@@ -73,7 +72,7 @@ public class BookingRequestMDB implements MessageListener {
                 Logger.getLogger(BookingRequestMDB.class.getName()).log(Level.SEVERE, null, ex1);
             }
              mdc.setRollbackOnly();
-                LOG.log(Level.OFF, "Rolled back the booking request with booking number "+bd.getBookingno());
+                LOG.log(Level.WARNING, "Rolled back the booking request with booking number "+bd.getBookingno());
         }
        
     }

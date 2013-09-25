@@ -142,4 +142,11 @@ public class DataQuerySerivceBean implements DataQuerySerivceBeanRemote,DataQuer
                                     );
     }
 
+    @Override
+    public boolean ifSeatsAvailable(String flightID) {
+       
+        return (getFlightEntityById(flightID).getCapacity()>getBookingsByFlight(flightID).size())?true:false;
+        
+    }
+
 }

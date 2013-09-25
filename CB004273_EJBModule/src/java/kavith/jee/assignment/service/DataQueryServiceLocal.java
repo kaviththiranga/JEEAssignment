@@ -20,4 +20,5 @@ public interface DataQueryServiceLocal {
     Flightcb004273 getFlightEntityById(String id);
     Passengercb004273 getPassengerEntityById(String id);
     Bookingcb004273 getBookingEntityById(String id);
+    boolean ifSeatsAvailable(String flightID);
 }
