@@ -26,7 +26,7 @@ import kavith.jee.assignment.utils.EntityHelper;
  * @author Kavith
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "FilghtBookingService")
 })
 public class BookingRequestMDB implements MessageListener {

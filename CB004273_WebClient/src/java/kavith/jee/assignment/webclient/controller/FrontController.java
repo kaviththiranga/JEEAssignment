@@ -14,8 +14,8 @@ import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
+import javax.jms.Queue;
 import javax.jms.Session;
-import javax.jms.Topic;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +35,7 @@ public class FrontController extends HttpServlet {
     @Resource(mappedName = "java:comp/DefaultJMSConnectionFactory")
     private ConnectionFactory connectionFactory;
     @Resource(mappedName = "FilghtBookingService")
-    private Topic topic;
+    private Queue queue;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -199,7 +199,7 @@ public class FrontController extends HttpServlet {
             try {
                 connection = connectionFactory.createConnection();
                 session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                messageProducer = session.createProducer(topic);
+                messageProducer = session.createProducer(queue);
                 message = session.createObjectMessage();
 
                 BookingDetails bd = new BookingDetails(inputBID, inputPassenger, inputFlight);

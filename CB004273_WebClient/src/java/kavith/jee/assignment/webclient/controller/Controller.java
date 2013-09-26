@@ -12,6 +12,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.Context;
@@ -31,7 +32,7 @@ public class Controller {
     private ConnectionFactory connectionFactory;
 
     @Resource(lookup = "jms/FilghtBookingService")
-    private Topic topic;
+    private Queue queue;
     
     public static AirlineAdminServiceBeanRemote getAirlineAdminServiceBeanRemote() {
         try {
@@ -62,7 +63,7 @@ public class Controller {
         try {
             connection = connectionFactory.createConnection();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            messageProducer = session.createProducer(topic);
+            messageProducer = session.createProducer(queue);
             message = session.createObjectMessage();
             message.setObject(booking);
             messageProducer.send(message);

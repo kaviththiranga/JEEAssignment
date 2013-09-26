@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import kavith.jee.assignment.entity.Flightcb004273;
 import kavith.jee.assignment.utils.*;
 
 /**
