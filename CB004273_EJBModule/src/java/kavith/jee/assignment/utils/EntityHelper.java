@@ -163,7 +163,7 @@ public class EntityHelper {
          return null;
     }
     
-    public static <T> List<T> convertToDetailsList(Class<T> cls , List<RecordEntity> lst)
+    public static <T extends RecordDetails> List<T> convertToDetailsList(Class<T> cls , List<RecordEntity> lst)
     {
             List<T> newlst = new ArrayList<>();
             

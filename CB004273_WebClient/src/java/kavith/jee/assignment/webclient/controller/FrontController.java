@@ -34,7 +34,7 @@ public class FrontController extends HttpServlet {
 
     @Resource(mappedName = "java:comp/DefaultJMSConnectionFactory")
     private ConnectionFactory connectionFactory;
-    @Resource(mappedName = "FilghtBookingService")
+    @Resource(mappedName = "BookingService")
     private Queue queue;
 
     @Override

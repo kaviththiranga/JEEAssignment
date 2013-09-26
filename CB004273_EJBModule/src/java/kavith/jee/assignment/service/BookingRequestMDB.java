@@ -20,6 +20,7 @@ import javax.persistence.PersistenceContext;
 import kavith.jee.assignment.entity.Flightcb004273;
 import kavith.jee.assignment.utils.BookingDetails;
 import kavith.jee.assignment.utils.EntityHelper;
+import sun.awt.windows.ThemeReader;
 
 /**
  *
@@ -27,7 +28,7 @@ import kavith.jee.assignment.utils.EntityHelper;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "FilghtBookingService")
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "BookingService")
 })
 public class BookingRequestMDB implements MessageListener {
     @EJB
@@ -40,9 +41,7 @@ public class BookingRequestMDB implements MessageListener {
     private MessageDrivenContext mdc;
     
     private static final Logger LOG = Logger.getLogger(BookingRequestMDB.class.getName());
-    
-    
-    
+
     public BookingRequestMDB() {
     }
     
